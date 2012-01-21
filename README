@@ -1,0 +1,28 @@
+dvdprofiler2xbmc is a script made to create fake files for use with XBMC.
+
+If you have a DVD/HD-DVD/blu-ray collection that you have registered in
+DVD Profiler, and you want to browse that collection in XBMC, you can 
+make fake files as you can read about here:
+http://wiki.xbmc.org/index.php?title=HOW-TO:Catalog_and_use_lookups_on_your_offline_DVD/CD_movie_library_%28via_fake_files%29
+
+Usage:
+
+First, set up all the titles/disc/entries you want to show up in
+XBMC with a count 1, and 0 on those you don't want visible
+
+E.g. I have a box that contains all three Matrix movies.
+I set the box set to have a count 0, and each of the movies to have a count
+of 1. 
+
+The script will then create a fake file for the movies, but nothing
+for the box itself. Since finding a movie is more interesting than
+finding the box itself.
+
+If an entry/disc has more than one movie, you can set the count
+to reflect that.
+
+E.g. I have a disc with "Waxworks" and "Waxworks II". The title of the disc is
+set to "Waxworks/Waxworks II". I set the count to two, and the script will
+split on the '/', and create one fake file for each movie.
+
+
