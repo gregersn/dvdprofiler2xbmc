@@ -7,6 +7,7 @@ http://wiki.xbmc.org/index.php?title=HOW-TO:Catalog_and_use_lookups_on_your_offl
 http://invelos.com/
 
 By default uses the file Collection.xml in current directory.
+Other file can be specified on commandline
 Writes files into folder named output under current directory
 
 Discs/titles/entries set with "count as" to 0 in DVD Profiler will be ignored.
@@ -18,9 +19,8 @@ file per result in a / split.
 '''
 
 from lxml import etree
-
-#TODO Get file name from command line
-collection = etree.parse(open("Collection.xml", "r"))
+import re
+import sys
 
 # Does a string to binary conversion
 def binary(text):
@@ -82,6 +82,7 @@ def handleEntry(entry):
 		filename = filename.replace('\\', ' ')
 		filename = filename.replace('?', ' ')
 		filename = filename.replace('!', ' ')
+		filename = re.sub(' +', ' ', filename) # Remove double white spaces
 		print filename
 
 		fp = open("output/"+filename, "w")
@@ -92,5 +93,16 @@ def handleCollection(collection):
 	for entry in entries:
 		handleEntry(entry)
 
-handleCollection(collection)
+collectionFile = "Collection.xml"
+if(len(sys.argv) > 1):
+	collectionFile = sys.argv[1]
+
+collection = None
+try:
+	collection = etree.parse(open(collectionFile, "r"))
+except IOError:
+	print "Could not open file: " + collectionFile
+
+if collection is not None:
+	handleCollection(collection)
 
